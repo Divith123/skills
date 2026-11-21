@@ -1,6 +1,6 @@
 {
   "name": "blame-the-intern",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Makes your coding agent work like a careful senior developer on every project: reads the project first, reuses what exists, checks current docs, keeps files organized, writes real code, and reports honestly.",
   "author": {
     "name": "Divith S",

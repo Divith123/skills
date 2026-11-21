@@ -21,7 +21,7 @@ If components are already scattered across the project, move them into this plac
 
 ## Rules for every visual change
 
-- Components and screens use purpose-named tokens only. No raw colors, pixel sizes, or font names outside the token files.
+- Components and screens use purpose-named tokens only. No raw colors, pixel sizes, or font names outside the token files. Values computed at runtime (measured layout, positions) are fine.
 - When you replace a hardcoded value with a token, keep the exact value: reuse a token with the same value, or add one. Don't swap in a similar token that changes how the screen looks unless the user asks.
 - Define the brand once: name, logo, colors, and fonts. A rebrand should touch only the token and brand files.
 - Every interactive component handles hover, focus, pressed, disabled, loading, and error states.

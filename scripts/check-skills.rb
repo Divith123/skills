@@ -36,6 +36,18 @@ skill_dirs.each do |dir|
   fail_with.("#{path}: name must be 1-64 lowercase letters, digits, single hyphens") unless name.match?(/\A[a-z0-9]+(-[a-z0-9]+)*\z/) && name.length <= 64
   fail_with.("#{path}: name '#{name}' must match folder '#{File.basename(dir)}'") unless name == File.basename(dir)
 
+  %w[license allowed-tools].each do |key|
+    fail_with.("#{path}: #{key} must be a string") if fm.key?(key) && !fm[key].is_a?(String)
+  end
+  if fm.key?("compatibility")
+    compat = fm["compatibility"]
+    fail_with.("#{path}: compatibility must be a string of 1-500 chars") unless compat.is_a?(String) && compat.length.between?(1, 500)
+  end
+  if fm.key?("metadata")
+    meta = fm["metadata"]
+    fail_with.("#{path}: metadata must map strings to strings") unless meta.is_a?(Hash) && meta.all? { |k, v| k.is_a?(String) && v.is_a?(String) }
+  end
+
   desc = fm["description"].to_s
   fail_with.("#{path}: description is empty") if desc.strip.empty?
   fail_with.("#{path}: description is #{desc.length} chars (max 1024)") if desc.length > 1024
@@ -52,6 +64,9 @@ skill_dirs.each do |dir|
   Dir.glob(File.join(dir, "references", "*.md")).each do |ref|
     rel = ref.delete_prefix("#{dir}/")
     fail_with.("#{path}: #{rel} is never linked, so agents won't read it") unless links.include?(rel)
+    File.read(ref).scan(/\]\(([^)#\s]+)\)/).flatten.reject { |l| l.match?(%r{\A[a-z]+://}) }.each do |link|
+      fail_with.("#{ref}: broken link #{link}") unless File.exist?(File.join(File.dirname(ref), link))
+    end
   end
 end
 
@@ -59,8 +74,9 @@ Dir.glob("evals/*.json").each do |file|
   skill = File.basename(file, ".json")
   fail_with.("#{file}: no skill named #{skill} under skills/") unless skill_dirs.include?("skills/#{skill}")
   items = JSON.parse(File.read(file))
-  valid = items.is_a?(Array) && items.all? { |i| i.keys.sort == %w[query should_trigger] && [true, false].include?(i["should_trigger"]) }
-  fail_with.("#{file}: each item needs exactly query and should_trigger (boolean)") unless valid
+  valid = items.is_a?(Array) && items.all? { |i| i.is_a?(Hash) && i.keys.sort == %w[query should_trigger] && i["query"].is_a?(String) && !i["query"].strip.empty? && [true, false].include?(i["should_trigger"]) }
+  next fail_with.("#{file}: each item needs a non-empty query and a boolean should_trigger") unless valid
+  fail_with.("#{file}: needs prompts that should trigger and prompts that should not") unless items.any? { |i| i["should_trigger"] } && items.any? { |i| !i["should_trigger"] }
 rescue JSON::ParserError => e
   fail_with.("#{file}: invalid JSON: #{e.message}")
 end
@@ -90,8 +106,16 @@ version = versions.values.first
 
 %w[.claude-plugin/marketplace.json .agents/plugins/marketplace.json].each do |path|
   market = read_json(path, fail_with) or next
-  names = Array(market["plugins"]).map { |p| p["name"] }
-  fail_with.("#{path}: no #{plugin_name} entry") unless names.include?(plugin_name)
+  fail_with.("#{path}: name is missing") if market["name"].to_s.empty?
+  entries = Array(market["plugins"])
+  fail_with.("#{path}: no #{plugin_name} entry") unless entries.any? { |p| p["name"] == plugin_name }
+  entries.each { |p| fail_with.("#{path}: entry #{p['name']} has no source") unless p["source"] }
+end
+claude_market = read_json(".claude-plugin/marketplace.json", fail_with)
+fail_with.(".claude-plugin/marketplace.json: owner.name is required") if claude_market && claude_market.dig("owner", "name").to_s.empty?
+codex_market = read_json(".agents/plugins/marketplace.json", fail_with)
+Array(codex_market && codex_market["plugins"]).each do |p|
+  fail_with.(".agents/plugins/marketplace.json: entry #{p['name']} needs policy.installation, policy.authentication, and category") unless p.dig("policy", "installation") && p.dig("policy", "authentication") && p["category"]
 end
 
 changelog = File.exist?("CHANGELOG.md") ? File.read("CHANGELOG.md") : ""
