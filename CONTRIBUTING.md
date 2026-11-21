@@ -11,7 +11,7 @@ Thanks for helping. Issues and pull requests are welcome.
 | `evals/<name>.json` | Prompts that should and shouldn't load the skill with that name |
 | `rules/AGENTS.md` | The always-on rule. Edit it here only; the check makes every copy match it |
 | `adapters/<agent>/` | The same rule in the format Cursor, Kiro, and Windsurf expect |
-| `hooks/hooks.json` | The session-start reminder used by the Claude Code, Codex, and Copilot plugins |
+| `hooks/hooks.json` | The session-start reminder, in the format Claude Code, Codex, and Gemini CLI read. Other agents get the rule from the rule files instead |
 | `plugin.json`, `.claude-plugin/`, `.cursor-plugin/`, `.antigravity-plugin/`, `.agents/plugins/`, `gemini-extension.json`, `GEMINI.md` | Plugin and extension manifests, one per agent, all at the same version |
 | `CHANGELOG.md` | One entry per version |
 | `scripts/check-skills.rb` | The repository check |

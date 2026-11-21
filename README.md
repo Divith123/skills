@@ -48,7 +48,7 @@ The name is a joke. The skill judges code, not people.
 | [`references/design-system.md`](skills/blame-the-intern/references/design-system.md) | For any visual change |
 | [`references/research-and-packages.md`](skills/blame-the-intern/references/research-and-packages.md) | Before using a library or API, and before suggesting a package |
 
-The skill itself has no scripts, makes no network calls, and needs no extra permissions. The plugins add one session-start hook that prints a short reminder (see [`hooks/hooks.json`](hooks/hooks.json)). Read the files before installing; they're short.
+The skill itself has no scripts, makes no network calls, and needs no extra permissions. The Claude Code, Codex, and Gemini CLI plugins add one session-start hook that prints a short reminder (see [`hooks/hooks.json`](hooks/hooks.json)). Read the files before installing; they're short.
 
 ## Install
 
