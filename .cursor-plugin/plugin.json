@@ -17,7 +17,7 @@
     "refactoring"
   ],
   "skills": "./skills/",
-  "rules": "./rules/blame-the-intern.mdc",
+  "rules": "./adapters/cursor/blame-the-intern.mdc",
   "hooks": {
     "version": 1,
     "hooks": {}

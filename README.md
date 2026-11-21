@@ -57,7 +57,7 @@ RAW="https://raw.githubusercontent.com/Divith123/skills/main"
 | Codex | `codex plugin marketplace add Divith123/skills`, then `codex plugin add blame-the-intern@divith-skills` | `curl -fsSL $RAW/rules/AGENTS.md >> ~/.codex/AGENTS.md` (the plugin hook runs only in the Codex desktop app, after you trust it) |
 | Gemini CLI | `gemini extensions install https://github.com/Divith123/skills` | Included: the extension's context file |
 | Antigravity | `agy plugin install https://github.com/Divith123/skills` | Included: the plugin's always-on rule |
-| Cursor | `git clone https://github.com/Divith123/skills ~/.cursor/plugins/local/blame-the-intern`, then reload Cursor | Included: an always-apply rule. For one project instead, copy [`rules/blame-the-intern.mdc`](rules/blame-the-intern.mdc) into `.cursor/rules/` |
+| Cursor | `git clone https://github.com/Divith123/skills ~/.cursor/plugins/local/blame-the-intern`, then reload Cursor | Included: an always-apply rule. For one project instead, copy [`adapters/cursor/blame-the-intern.mdc`](adapters/cursor/blame-the-intern.mdc) into `.cursor/rules/` |
 | GitHub Copilot CLI | `copilot plugin marketplace add Divith123/skills`, then `copilot plugin install blame-the-intern@divith-skills` | `curl -fsSL $RAW/rules/AGENTS.md >> ~/.copilot/copilot-instructions.md` |
 | GitHub Copilot in VS Code | `npx skills add Divith123/skills --skill blame-the-intern -a github-copilot` | Add the text of `rules/AGENTS.md` to `.github/copilot-instructions.md` |
 | OpenCode | `npx skills add Divith123/skills --skill blame-the-intern -a opencode -g` | `curl -fsSL $RAW/rules/AGENTS.md >> ~/.config/opencode/AGENTS.md` |
@@ -83,10 +83,10 @@ To turn it off for one task, say so in your message. The skill tells the agent t
 
 `ruby scripts/check-skills.rb` checks every skill against the [Agent Skills spec](https://agentskills.io/specification): the frontmatter, the 500-line limit, every reference link, and the eval and plugin files. Run `git config core.hooksPath .githooks` once to run it before every push. The same check runs in GitHub Actions on pushes and pull requests. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-`evals/trigger-queries.json` holds 20 prompts: 10 coding tasks that should load the skill and 10 non-coding requests that shouldn't. It uses the format of Anthropic's [skill-creator](https://github.com/anthropics/skills/tree/main/skills/skill-creator). With Claude Code installed, run this from the skill-creator folder after changing the `description`:
+`evals/blame-the-intern.json` holds 20 prompts: 10 coding tasks that should load the skill and 10 non-coding requests that shouldn't. It uses the format of Anthropic's [skill-creator](https://github.com/anthropics/skills/tree/main/skills/skill-creator). With Claude Code installed, run this from the skill-creator folder after changing the `description`:
 
 ```sh
-python -m scripts.run_eval --eval-set /path/to/skills/evals/trigger-queries.json --skill-path /path/to/skills/skills/blame-the-intern
+python -m scripts.run_eval --eval-set /path/to/skills/evals/blame-the-intern.json --skill-path /path/to/skills/skills/blame-the-intern
 ```
 
 ## License

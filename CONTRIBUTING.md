@@ -8,9 +8,9 @@ Thanks for helping. Issues and pull requests are welcome.
 | --- | --- |
 | `skills/<name>/SKILL.md` | One skill. The folder name must match the `name` in its frontmatter |
 | `skills/<name>/references/` | Files the skill tells the agent to read at a given step |
-| `evals/trigger-queries.json` | Prompts that should and shouldn't load the skill |
+| `evals/<name>.json` | Prompts that should and shouldn't load the skill with that name |
 | `rules/AGENTS.md` | The always-on rule. Edit it here only; the check makes every copy match it |
-| `rules/blame-the-intern.mdc`, `adapters/` | The same rule in the format Cursor, Kiro, and Windsurf expect |
+| `adapters/<agent>/` | The same rule in the format Cursor, Kiro, and Windsurf expect |
 | `hooks/hooks.json` | The session-start reminder used by the Claude Code, Codex, and Copilot plugins |
 | `plugin.json`, `.claude-plugin/`, `.cursor-plugin/`, `.antigravity-plugin/`, `.agents/plugins/`, `gemini-extension.json`, `GEMINI.md` | Plugin and extension manifests, one per agent, all at the same version |
 | `CHANGELOG.md` | One entry per version |
