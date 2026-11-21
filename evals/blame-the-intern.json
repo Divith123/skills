@@ -10,13 +10,13 @@
   {"query": "write tests for the invoice parser in billing/parse.py, it keeps breaking on currencies", "should_trigger": true},
   {"query": "are any of our dependencies outdated or abandoned? suggest better maintained alternatives", "should_trigger": true},
   {"query": "explain what recursion is with a simple example, I'm learning programming", "should_trigger": false},
-  {"query": "what's the difference between TCP and UDP", "should_trigger": false},
-  {"query": "write a cover letter for a junior frontend developer job", "should_trigger": false},
-  {"query": "summarize this article about the history of the internet", "should_trigger": false},
-  {"query": "write a haiku about debugging at 3am", "should_trigger": false},
+  {"query": "what does the regex ^[a-z]+$ match? just curious, not for a project", "should_trigger": false},
+  {"query": "what's the difference between git merge and git rebase, in general terms", "should_trigger": false},
+  {"query": "is React or Vue easier to learn as a first frontend framework?", "should_trigger": false},
+  {"query": "explain what a monorepo is and when teams use one", "should_trigger": false},
+  {"query": "write release notes for our app from this list: added dark mode, fixed login crash, faster search", "should_trigger": false},
   {"query": "give me an excel formula that sums column B when column A says paid", "should_trigger": false},
-  {"query": "translate this paragraph into Spanish", "should_trigger": false},
-  {"query": "which laptop is better for programming, a macbook air or a thinkpad x1?", "should_trigger": false},
-  {"query": "draft a tweet announcing our product launch next tuesday", "should_trigger": false},
-  {"query": "what does the regex ^[a-z]+$ match?", "should_trigger": false}
+  {"query": "what does HTTP status 409 mean?", "should_trigger": false},
+  {"query": "summarize the main points of the Agile manifesto", "should_trigger": false},
+  {"query": "draft an email to my team saying the deploy is moved to Friday", "should_trigger": false}
 ]

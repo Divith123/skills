@@ -15,6 +15,6 @@ Follow the blame-the-intern skill (`skills/blame-the-intern/SKILL.md`) for every
 
 ## Rules for this repo
 
-- Edit the always-on rule only in `rules/AGENTS.md`, then copy the same text into each file in `adapters/` and into `hooks/hooks.json`. The check fails if they differ.
-- When you change the version, change it in every manifest and add a `CHANGELOG.md` entry.
+- Edit the always-on rule only in `rules/AGENTS.md`, and the version only in `plugin.json`. Then run `ruby scripts/sync-copies.rb` to update every copy. The check fails if any copy differs.
+- Add a `CHANGELOG.md` entry for each new version.
 - Never commit `research/` or `problems/`; they are git-ignored on purpose.

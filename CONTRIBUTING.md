@@ -15,6 +15,7 @@ Thanks for helping. Issues and pull requests are welcome.
 | `plugin.json`, `.claude-plugin/`, `.cursor-plugin/`, `.antigravity-plugin/`, `.agents/plugins/`, `gemini-extension.json`, `GEMINI.md` | Plugin and extension manifests, one per agent, all at the same version |
 | `CHANGELOG.md` | One entry per version |
 | `scripts/check-skills.rb` | The repository check |
+| `scripts/sync-copies.rb` | Copies the rule from `rules/AGENTS.md` and the version from `plugin.json` into every agent-specific file |
 
 ## Before you open a pull request
 
@@ -33,7 +34,7 @@ Thanks for helping. Issues and pull requests are welcome.
    It checks the frontmatter against the [Agent Skills spec](https://agentskills.io/specification), the 500-line limit, every reference link, and the eval and plugin files.
 
 3. If you changed a skill's `description`, run the trigger evals in `evals/` (see the README) and include the results in the pull request.
-4. If you change the version, change it in every manifest and add a `CHANGELOG.md` entry. The check fails otherwise.
+4. If you change the rule in `rules/AGENTS.md` or the version in `plugin.json`, run `ruby scripts/sync-copies.rb` to update every copy, and add a `CHANGELOG.md` entry for a new version. The check fails otherwise.
 5. If you changed a rule, say which agent mistake it prevents. If you can, show a before and after run on a real task.
 
 ## Writing style

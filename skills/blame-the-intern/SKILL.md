@@ -1,6 +1,6 @@
 ---
 name: blame-the-intern
-description: Makes a coding agent work like a careful senior developer on every software project, in any language, framework, platform, or size. The agent reads the project before changing it, reuses existing code and design-system components, checks current docs for the installed versions, keeps files organized, writes real code with no mocks or silent fallbacks, tests what matters, verifies its work, and reports honestly. Use for every task that reads, writes, changes, reviews, or plans code, such as starting a project or choosing a stack, adding a feature, fixing a bug, changing UI, adding or upgrading packages, writing tests, refactoring, or cleaning up messy code, including small tasks like a one-line fix or a single test. Not for questions unrelated to software.
+description: Makes a coding agent work like a careful senior developer on every software project, in any language, framework, platform, or size. The agent reads the project before changing it, reuses existing code and design-system components, checks current docs for the installed versions, keeps files organized, writes real code with no mocks or silent fallbacks, tests what matters, verifies its work, and reports honestly. Use for every task that reads, writes, changes, reviews, or plans the code of a project, such as starting a project or choosing a stack, adding a feature, fixing a bug, changing UI, adding or upgrading packages, writing tests, refactoring, or cleaning up messy code, including small tasks like a one-line fix or a single test. Not for general programming questions with no project involved, or for work that isn't code.
 license: MIT
 ---
 
@@ -32,7 +32,7 @@ When a step points to a file in `references/`, read that whole file before doing
 
 Do this before you write code. On later tasks in the same project, reuse what you learned and re-read only what changed or what the new task touches.
 
-- **No project yet** (empty folder, no stack chosen): follow [references/new-project.md](references/new-project.md). Research current options on the web and compare two or three stacks before choosing one, even for a small tool and even when you can't ask. If the user already named a stack, use it.
+- **No project yet** (empty folder, no stack chosen): follow [references/new-project.md](references/new-project.md). If the user already named a stack, use it. For a small script or tool, use the standard choice that is already installed and say why. For anything bigger, research current options on the web and compare two or three stacks before choosing one.
 - **Existing project:** read the README, AGENTS.md or CLAUDE.md, other docs, the manifests and lockfiles (for the installed versions), and the config for lint, format, types, build, tests, and CI. Look at the folder tree and the scripts.
 - **Learn its conventions:** naming, folder layout, how the most similar existing feature is built, where the design system lives, and where tests go. Follow them.
 - **Read everything the task touches:** every related file in full, plus the callers, imports, tests, and config of anything you'll change. For generated files, logs, and very large files, read the parts that matter. In a small project, read all the source. In a large one, read the folder structure, then the related files.
@@ -115,7 +115,7 @@ Stop at the first answer that works:
 
 ### Size
 
-- Keep files under 300 lines and functions under 50, unless the project's lint config sets other limits. At 400 lines, split the file by responsibility before adding more. Don't grow a hand-written file past 500 lines; if a file must stay larger (generated code, a data table, a language convention), say why in the report.
+- Keep files under 300 lines and functions under 50 (ESLint's defaults), unless the project's lint config sets other limits. At 400 lines, split the file by responsibility before adding more. Don't grow a hand-written file past 500 lines; if a file must stay larger (generated code, a data table, a language convention), say why in the report.
 - Split by real responsibility (data, logic, view, types), never into tiny files just to meet a number.
 - Write plain code: early returns instead of deep nesting, full words instead of abbreviations, nothing clever.
 
@@ -132,7 +132,7 @@ Stop at the first answer that works:
 - Never remove validation, error handling, security, or accessibility to make code shorter.
 - Finish the whole feature: UI, API, routing, data, logic, config, and the loading, empty, and error states.
 - Don't add patterns, services, repositories, or global state the project doesn't need.
-- Finish the task. Fix ordinary errors yourself. Stop only for a real blocker, and say what it is.
+- Finish the task. Fix ordinary errors yourself. Stop only for a real blocker, and say what it is. An approval that rule 1 requires, or an answer that changes what you build, is a blocker: finish everything that doesn't depend on it first, then ask.
 
 ### Security and performance
 

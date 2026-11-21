@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.2.0
+
+- The skill and always-on rule now apply to work on a project's code; general programming questions without a project don't trigger it.
+- Trigger evals use harder near-miss prompts that match the description.
+- Small scripts and tools use the standard installed stack instead of a full stack comparison.
+- Waiting for a required approval counts as a blocker: finish everything else first, then ask.
+- `scripts/sync-copies.rb` updates every rule copy and manifest version from one source.
+- README states the size of the always-on test plainly.
+
 ## 1.1.0
 
 - System and platform rules now come before the skill; the user can still set its rules aside.

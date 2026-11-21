@@ -69,7 +69,7 @@ RAW="https://raw.githubusercontent.com/Divith123/skills/main"
 
 Set `RAW` in your shell first, or paste the full URL. The `>>` commands append to your existing file, so nothing you already have is lost.
 
-Every rule file contains the same text, and the repository check fails if any copy drifts. In tests on this machine, the always-on rule changed how often the agent loaded the skill on coding tasks from 0 of 3 to 3 of 3 in Kiro, and from 1 of 3 to 3 of 3 in OpenCode. The other rows follow each agent's current documentation and haven't been run here.
+Every rule file contains the same text, and the repository check fails if any copy drifts. In a small test on this machine (3 coding prompts per agent, one run each), the always-on rule raised how often the agent loaded the skill from 0 to 3 in Kiro and from 1 to 3 in OpenCode. That is a smoke test, not a measurement. The other rows follow each agent's current documentation and haven't been run here.
 
 To install only the skill by hand, copy `skills/blame-the-intern/` into your agent's skills folder and keep the folder name.
 

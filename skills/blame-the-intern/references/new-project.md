@@ -1,6 +1,6 @@
 # New project
 
-Use this when the folder is empty or the user hasn't chosen a stack yet.
+Use this when the folder is empty or the user hasn't chosen a stack yet. For a small script or tool, skip to step 4 with the standard choice that is already installed, and say why.
 
 1. **Ask what they're building** if it isn't clear: what it does, who uses it, where it runs (web, mobile, desktop, server, command line), and any must-haves (offline use, scale, budget, the team's skills).
 2. **Research current options.** Your training data is out of date. Search the web for the current recommended stacks for this kind of project. For each candidate, check its latest stable version, recent releases, license, and adoption on its official site and package registry.
