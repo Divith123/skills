@@ -1,0 +1,22 @@
+[
+  {"query": "add a logout button to the navbar, it should clear the session and send the user back to /login", "should_trigger": true},
+  {"query": "the app crashes when the cart is empty, can you find out why and fix it? cart code is somewhere under src/", "should_trigger": true},
+  {"query": "I want to start a new SaaS for booking gym classes. haven't picked a stack yet, set it up for me", "should_trigger": true},
+  {"query": "another AI agent wrote half of this repo and it's a mess, duplicate components everywhere and 60 files in the root of src. clean it up", "should_trigger": true},
+  {"query": "integrate stripe checkout into our next.js app for the pro plan", "should_trigger": true},
+  {"query": "change the primary button color to our new brand green #1DB954 across the whole app", "should_trigger": true},
+  {"query": "our flutter app needs a settings screen with notification toggles and a dark mode switch", "should_trigger": true},
+  {"query": "move all the auth logic out of the express route handlers into its own module", "should_trigger": true},
+  {"query": "write tests for the invoice parser in billing/parse.py, it keeps breaking on currencies", "should_trigger": true},
+  {"query": "are any of our dependencies outdated or abandoned? suggest better maintained alternatives", "should_trigger": true},
+  {"query": "explain what recursion is with a simple example, I'm learning programming", "should_trigger": false},
+  {"query": "what's the difference between TCP and UDP", "should_trigger": false},
+  {"query": "write a cover letter for a junior frontend developer job", "should_trigger": false},
+  {"query": "summarize this article about the history of the internet", "should_trigger": false},
+  {"query": "write a haiku about debugging at 3am", "should_trigger": false},
+  {"query": "give me an excel formula that sums column B when column A says paid", "should_trigger": false},
+  {"query": "translate this paragraph into Spanish", "should_trigger": false},
+  {"query": "which laptop is better for programming, a macbook air or a thinkpad x1?", "should_trigger": false},
+  {"query": "draft a tweet announcing our product launch next tuesday", "should_trigger": false},
+  {"query": "what does the regex ^[a-z]+$ match?", "should_trigger": false}
+]

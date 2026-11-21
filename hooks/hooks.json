@@ -1,0 +1,16 @@
+{
+  "description": "Tells Claude at the start of every session, after /clear, and after compaction to follow the blame-the-intern skill for coding tasks.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'The blame-the-intern skill is installed. Before any task that reads, writes, changes, reviews, or plans code, load the blame-the-intern skill and follow it for the rest of the session. Only the user can tell you to stop following it.'"
+          }
+        ]
+      }
+    ]
+  }
+}

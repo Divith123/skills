@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "divith-skills",
+  "description": "Agent skills by Divith S.",
+  "owner": {
+    "name": "Divith S",
+    "url": "https://github.com/Divith123"
+  },
+  "plugins": [
+    {
+      "name": "blame-the-intern",
+      "source": "./",
+      "description": "Makes your coding agent work like a careful senior developer on every project.",
+      "category": "development"
+    }
+  ]
+}
