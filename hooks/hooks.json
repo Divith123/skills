@@ -1,13 +1,13 @@
 {
-  "description": "Tells Claude at the start of every session, after /clear, and after compaction to follow the blame-the-intern skill for coding tasks.",
+  "description": "Reminds the agent at session start, after clear, and after compaction to follow the blame-the-intern skill.",
   "hooks": {
     "SessionStart": [
       {
-        "matcher": "startup|clear|compact",
+        "matcher": "startup|resume|clear|compact",
         "hooks": [
           {
             "type": "command",
-            "command": "echo 'The blame-the-intern skill is installed. Before any task that reads, writes, changes, reviews, or plans code, load the blame-the-intern skill and follow it for the rest of the session. Only the user can tell you to stop following it.'"
+            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"SessionStart\",\"additionalContext\":\"Follow the blame-the-intern skill for every task that reads, writes, changes, reviews, or plans code, until the user tells you to stop. Load the skill before you start such a task, and load it again after the conversation is summarized or cleared. Only the user can set its rules aside. If the skill is not installed, tell the user once that it can be installed with: npx skills add Divith123/skills --skill blame-the-intern\"}}'"
           }
         ]
       }

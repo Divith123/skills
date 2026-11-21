@@ -63,17 +63,55 @@ rescue JSON::ParserError => e
   fail_with.("#{file}: invalid JSON: #{e.message}")
 end
 
-plugin_file = ".claude-plugin/plugin.json"
-market_file = ".claude-plugin/marketplace.json"
-if File.exist?(plugin_file) && File.exist?(market_file)
-  begin
-    plugin = JSON.parse(File.read(plugin_file))
-    market = JSON.parse(File.read(market_file))
-    entry_names = Array(market["plugins"]).map { |p| p["name"] }
-    fail_with.("#{market_file}: no entry named '#{plugin['name']}' from #{plugin_file}") unless entry_names.include?(plugin["name"])
-  rescue JSON::ParserError => e
-    fail_with.("plugin manifest: invalid JSON: #{e.message}")
-  end
+def read_json(path, fail_with)
+  JSON.parse(File.read(path))
+rescue Errno::ENOENT
+  fail_with.("#{path}: missing")
+  nil
+rescue JSON::ParserError => e
+  fail_with.("#{path}: invalid JSON: #{e.message}")
+  nil
+end
+
+# Each agent has its own manifest; all must name the same plugin and version.
+manifests = %w[plugin.json .claude-plugin/plugin.json .cursor-plugin/plugin.json .antigravity-plugin/plugin.json gemini-extension.json]
+versions = {}
+manifests.each do |path|
+  data = read_json(path, fail_with) or next
+  fail_with.("#{path}: name must be blame-the-intern") unless data["name"] == "blame-the-intern"
+  versions[path] = data["version"]
+end
+fail_with.("manifest versions differ: #{versions}") unless versions.values.uniq.length == 1
+version = versions.values.first
+
+%w[.claude-plugin/marketplace.json .agents/plugins/marketplace.json].each do |path|
+  market = read_json(path, fail_with) or next
+  names = Array(market["plugins"]).map { |p| p["name"] }
+  fail_with.("#{path}: no blame-the-intern entry") unless names.include?("blame-the-intern")
+end
+
+changelog = File.exist?("CHANGELOG.md") ? File.read("CHANGELOG.md") : ""
+fail_with.("CHANGELOG.md: no entry for version #{version}") unless changelog.include?("## #{version}")
+
+cursor = read_json(".cursor-plugin/plugin.json", fail_with)
+fail_with.(".cursor-plugin/plugin.json: rules file #{cursor['rules']} missing") if cursor && !File.exist?(cursor["rules"].to_s)
+gemini = read_json("gemini-extension.json", fail_with)
+fail_with.("gemini-extension.json: context file missing") if gemini && !File.exist?(gemini["contextFileName"].to_s)
+fail_with.("GEMINI.md must import rules/AGENTS.md") unless File.exist?("GEMINI.md") && File.read("GEMINI.md").include?("@./rules/AGENTS.md")
+
+# The always-on rule is written once in rules/AGENTS.md; every agent's copy must match it.
+canonical = File.read("rules/AGENTS.md").lines.map(&:strip).reject { |l| l.empty? || l.start_with?("#") }.join(" ")
+fail_with.("rules/AGENTS.md: the rule must not contain a single quote (the hook echoes it)") if canonical.include?("'")
+%w[rules/blame-the-intern.mdc adapters/kiro/blame-the-intern.md adapters/windsurf/blame-the-intern.md].each do |path|
+  next fail_with.("#{path}: missing") unless File.exist?(path)
+  fail_with.("#{path}: rule text differs from rules/AGENTS.md") unless File.read(path).include?(canonical)
+end
+hooks = read_json("hooks/hooks.json", fail_with)
+if hooks
+  command = hooks.dig("hooks", "SessionStart", 0, "hooks", 0, "command").to_s
+  payload = command[/\Aecho '(.*)'\z/, 1]
+  context = payload && JSON.parse(payload).dig("hookSpecificOutput", "additionalContext") rescue nil
+  fail_with.("hooks/hooks.json: SessionStart must echo JSON whose additionalContext matches rules/AGENTS.md") unless context == canonical
 end
 
 if errors.empty?

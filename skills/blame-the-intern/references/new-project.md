@@ -11,5 +11,5 @@ Use this when the folder is empty or the user hasn't chosen a stack yet.
    - one place for the design system: tokens, theme, and shared components ([design-system.md](design-system.md))
    - format, lint, and type-check tools, with scripts to run them
    - a test setup, with tests placed the way the stack recommends
-   - a short AGENTS.md with the commands, the folder layout, and a line saying to follow the blame-the-intern skill
+   - a short AGENTS.md with the commands, the folder layout, and this line: "Follow the blame-the-intern skill for every coding task unless the user says otherwise."
 6. **Build what the user asked for,** following SKILL.md from Step 3.

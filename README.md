@@ -41,44 +41,41 @@ The name is a joke. The skill judges code, not people.
 | [`references/design-system.md`](skills/blame-the-intern/references/design-system.md) | For any visual change |
 | [`references/research-and-packages.md`](skills/blame-the-intern/references/research-and-packages.md) | Before using a library or API, and before suggesting a package |
 
-The skill itself has no scripts, makes no network calls, and needs no extra permissions. The Claude Code plugin adds one hook that prints a reminder at session start (see [`hooks/hooks.json`](hooks/hooks.json)). Read the files before installing; they're short.
+The skill itself has no scripts, makes no network calls, and needs no extra permissions. The plugins add one session-start hook that prints a short reminder (see [`hooks/hooks.json`](hooks/hooks.json)). Read the files before installing; they're short.
 
 ## Install
 
-With the [skills CLI](https://github.com/vercel-labs/skills), for most agents:
+Agents load a skill only when they decide a task needs it, and they sometimes skip it. So each install below has two parts: the skill, and a short always-on rule ([`rules/AGENTS.md`](rules/AGENTS.md)) that tells the agent to load the skill for every coding task. Where an agent has a plugin or extension, it installs both at once.
 
 ```sh
-npx skills add Divith123/skills --skill blame-the-intern       # this project
-npx skills add Divith123/skills --skill blame-the-intern -g    # all your projects
+RAW="https://raw.githubusercontent.com/Divith123/skills/main"
 ```
 
-As a Claude Code plugin, which also adds the session-start reminder:
-
-```text
-/plugin marketplace add Divith123/skills
-/plugin install blame-the-intern@divith-skills
-```
-
-By hand: copy `skills/blame-the-intern/` into your agent's skills folder and keep the folder name.
-
-| Agent | All projects | One project |
+| Agent | Install | Always-on rule |
 | --- | --- | --- |
-| Claude Code | `~/.claude/skills/` | `.claude/skills/` |
-| Codex | `~/.agents/skills/` | `.agents/skills/` |
-| Cursor | `~/.cursor/skills/` | `.cursor/skills/` or `.agents/skills/` |
-| GitHub Copilot | `~/.copilot/skills/` or `~/.agents/skills/` | `.github/skills/`, `.claude/skills/`, or `.agents/skills/` |
-| OpenCode | `~/.config/opencode/skills/` | `.opencode/skills/` |
-| Kiro | `~/.kiro/skills/` | `.kiro/skills/` |
+| Claude Code | `/plugin marketplace add Divith123/skills`, then `/plugin install blame-the-intern@divith-skills` | Included: a session-start hook |
+| Codex | `codex plugin marketplace add Divith123/skills`, then `codex plugin add blame-the-intern@divith-skills` | `curl -fsSL $RAW/rules/AGENTS.md >> ~/.codex/AGENTS.md` (the plugin hook runs only in the Codex desktop app, after you trust it) |
+| Gemini CLI | `gemini extensions install https://github.com/Divith123/skills` | Included: the extension's context file |
+| Antigravity | `agy plugin install https://github.com/Divith123/skills` | Included: the plugin's always-on rule |
+| Cursor | `git clone https://github.com/Divith123/skills ~/.cursor/plugins/local/blame-the-intern`, then reload Cursor | Included: an always-apply rule. For one project instead, copy [`rules/blame-the-intern.mdc`](rules/blame-the-intern.mdc) into `.cursor/rules/` |
+| GitHub Copilot CLI | `copilot plugin marketplace add Divith123/skills`, then `copilot plugin install blame-the-intern@divith-skills` | `curl -fsSL $RAW/rules/AGENTS.md >> ~/.copilot/copilot-instructions.md` |
+| GitHub Copilot in VS Code | `npx skills add Divith123/skills --skill blame-the-intern -a github-copilot` | Add the text of `rules/AGENTS.md` to `.github/copilot-instructions.md` |
+| OpenCode | `npx skills add Divith123/skills --skill blame-the-intern -a opencode -g` | `curl -fsSL $RAW/rules/AGENTS.md >> ~/.config/opencode/AGENTS.md` |
+| Kiro | `npx skills add Divith123/skills --skill blame-the-intern -a kiro-cli -g` | `mkdir -p ~/.kiro/steering && curl -fsSL $RAW/adapters/kiro/blame-the-intern.md -o ~/.kiro/steering/blame-the-intern.md` |
+| Zed | `npx skills add Divith123/skills --skill blame-the-intern -a zed -g` | `curl -fsSL $RAW/rules/AGENTS.md >> ~/.config/zed/AGENTS.md` (Windows: `%APPDATA%\Zed\AGENTS.md`) |
+| Windsurf / Devin | `npx skills add Divith123/skills --skill blame-the-intern -a windsurf -g` | `mkdir -p ~/.devin/rules && curl -fsSL $RAW/adapters/windsurf/blame-the-intern.md -o ~/.devin/rules/blame-the-intern.md` |
+| Cline | `npx skills add Divith123/skills --skill blame-the-intern -a cline -g` | `curl -fsSL $RAW/rules/AGENTS.md -o ~/Documents/Cline/Rules/blame-the-intern.md` |
+| Any other agent | `npx skills add Divith123/skills --skill blame-the-intern` and pick your agent | Add the text of `rules/AGENTS.md` to the agent's global instructions file, or to `AGENTS.md` in your project |
 
-## Use it on every task
+Set `RAW` in your shell first, or paste the full URL. The `>>` commands append to your existing file, so nothing you already have is lost.
 
-Agents decide on their own when to load a skill, and sometimes they skip it. To make the agent follow it on every task, add this line to your project's `AGENTS.md` (or `CLAUDE.md`, which Claude Code reads instead when both exist):
+Every rule file contains the same text, and the repository check fails if any copy drifts. In tests on this machine, the always-on rule changed how often the agent loaded the skill on coding tasks from 0 of 3 to 3 of 3 in Kiro, and from 1 of 3 to 3 of 3 in OpenCode. The other rows follow each agent's current documentation and haven't been run here.
 
-```md
-Follow the blame-the-intern skill for every coding task unless I say otherwise.
-```
+To install only the skill by hand, copy `skills/blame-the-intern/` into your agent's skills folder and keep the folder name.
 
-You can also call it by name: `/blame-the-intern` in Claude Code, Cursor, Copilot, and Kiro, `$blame-the-intern` in Codex, or `@blame-the-intern` in OpenCode.
+## Use
+
+Ask for any coding task as usual. You can also call the skill by name: `/blame-the-intern` in Claude Code, Cursor, Copilot, and Kiro, `$blame-the-intern` in Codex, or `@blame-the-intern` in OpenCode.
 
 To turn it off for one task, say so in your message. The skill tells the agent that only you can set its rules aside.
 

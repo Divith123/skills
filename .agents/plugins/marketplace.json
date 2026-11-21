@@ -1,0 +1,20 @@
+{
+  "name": "divith-skills",
+  "interface": {
+    "displayName": "Divith Skills"
+  },
+  "plugins": [
+    {
+      "name": "blame-the-intern",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}
