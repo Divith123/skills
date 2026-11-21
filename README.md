@@ -1,6 +1,13 @@
-# Skills
+# Agent Skills for coding agents
 
-[Agent Skills](https://agentskills.io) by Divith S. They work with Claude Code, Codex, Cursor, GitHub Copilot, OpenCode, Kiro, and any other agent that supports the open standard.
+[![License: MIT](https://img.shields.io/github/license/Divith123/skills)](LICENSE)
+[![Latest release](https://img.shields.io/github/v/release/Divith123/skills)](https://github.com/Divith123/skills/releases)
+
+Open-source [Agent Skills](https://agentskills.io) by Divith Selvam that make AI coding agents work like careful senior developers. They follow the open Agent Skills standard, so they work in Claude Code, OpenAI Codex, Cursor, GitHub Copilot, Gemini CLI, Google Antigravity, OpenCode, Kiro, Zed, Windsurf, Cline, and any agent that reads `SKILL.md` or `AGENTS.md`.
+
+```sh
+npx skills add Divith123/skills --skill blame-the-intern
+```
 
 | Skill | What it does |
 | --- | --- |
@@ -88,6 +95,10 @@ To turn it off for one task, say so in your message. The skill tells the agent t
 ```sh
 python -m scripts.run_eval --eval-set /path/to/skills/evals/blame-the-intern.json --skill-path /path/to/skills/skills/blame-the-intern
 ```
+
+## Contributing
+
+Bug reports, rule ideas, and new skills are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) first, and follow the [code of conduct](CODE_OF_CONDUCT.md). Report security problems privately as described in [SECURITY.md](SECURITY.md).
 
 ## License
 

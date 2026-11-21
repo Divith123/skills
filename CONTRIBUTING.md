@@ -48,4 +48,4 @@ Skills are read by agents, so keep them short and literal:
 
 ## Security
 
-Skills must not run scripts or make network calls on their own. If you find a security problem, open an issue without exploit details, and the maintainer will follow up.
+Skills must not run scripts or make network calls on their own. Report security problems privately as described in [SECURITY.md](SECURITY.md), not in a public issue.

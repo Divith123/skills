@@ -1,0 +1,23 @@
+name: Rule or skill request
+description: Suggest a new rule, a change to a rule, or a new skill.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: mistake
+    attributes:
+      label: The agent mistake
+      description: What coding agents do wrong today. A real example is the most useful part of this request.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed rule or skill
+      description: The instruction you'd add, in plain words.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Links to docs, issues, or a run that shows the mistake or the fix.

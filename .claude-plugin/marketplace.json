@@ -1,9 +1,9 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "divith-skills",
-  "description": "Agent skills by Divith S.",
+  "description": "Agent skills by Divith Selvam.",
   "owner": {
-    "name": "Divith S",
+    "name": "Divith Selvam",
     "url": "https://github.com/Divith123"
   },
   "plugins": [

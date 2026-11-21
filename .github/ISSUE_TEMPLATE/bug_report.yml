@@ -1,0 +1,56 @@
+name: Skill didn't work as expected
+description: The agent ignored the skill, broke a rule, or did something wrong while following it.
+labels: [bug]
+body:
+  - type: input
+    id: skill
+    attributes:
+      label: Skill
+      placeholder: blame-the-intern
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Skill version
+      description: From CHANGELOG.md or the installed plugin.
+      placeholder: 1.2.0
+    validations:
+      required: true
+  - type: input
+    id: agent
+    attributes:
+      label: Agent, version, and model
+      placeholder: Claude Code 2.1.300, Opus
+    validations:
+      required: true
+  - type: dropdown
+    id: install
+    attributes:
+      label: How you installed it
+      options:
+        - Plugin or extension
+        - skills CLI (npx skills add)
+        - Copied by hand
+    validations:
+      required: true
+  - type: textarea
+    id: prompt
+    attributes:
+      label: Your prompt
+      description: What you asked the agent. Remove anything private.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What the agent did
+      description: Which rule it broke or skipped, and the relevant part of its output.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
