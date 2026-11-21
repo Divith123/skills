@@ -35,7 +35,7 @@ Group the problems by cause. Put the riskiest first (wrong results, security hol
 4. Run the checks. Behavior must stay the same. Fix any new failure before starting the next group.
 5. Don't mix in unrelated changes, reformatting, or upgrades.
 
-If two copies of a rule disagree, merging them changes behavior, so ask the user which one is right. To change a public API, ask first, then add the new version, move the callers to it, and remove the old one last.
+If two copies of a rule disagree, merging them changes behavior, so ask the user which one is right. If you can't ask, merge them in a way that keeps each caller's current behavior and look (for example a variant or an option), and list the difference in the report. To change a public API, ask first, then add the new version, move the callers to it, and remove the old one last.
 
 ## 4. Report
 
