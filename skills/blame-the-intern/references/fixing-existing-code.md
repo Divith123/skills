@@ -9,7 +9,7 @@ Don't change anything yet. Write down each problem with its file and line, what 
 | Problem | Signs |
 | --- | --- |
 | Duplicates | The same logic, validation, constants, or UI in several places; several versions of one component |
-| Wrong place | A feature spread across root folders; piles of loose files at the top of a folder; feature folders with dozens of loose files |
+| Wrong place | A feature spread across root folders; piles of loose files at the top of any folder, at any depth, not only at the root; feature folders with dozens of loose files; nested folders holding files that belong in a subfolder |
 | Too big | Files over 400 lines or functions over 50 lines that mix responsibilities |
 | Bad names | `utils`, `misc`, `temp`, `final`, `v2`; different names for the same concept |
 | Unneeded code | Dead code; unused exports, flags, and settings; layers that only pass calls along; features nobody uses |

@@ -26,4 +26,4 @@ If components are already scattered across the project, move them into this plac
 - Define the brand once: name, logo, colors, and fonts. A rebrand should touch only the token and brand files.
 - Every interactive component handles hover, focus, pressed, disabled, loading, and error states.
 - Every component works with the keyboard, has labels for screen readers, and meets contrast rules (WCAG 2.2 AA on the web, the platform's accessibility guidelines elsewhere).
-- Look at the result when you can: screenshots, previews, or simulators.
+- Look at the result when you can: screenshots, previews, or simulators. If you can't, say in the report what you looked at instead (the markup, the computed styles, the component API) — never imply you saw a render you didn't.
